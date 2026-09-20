@@ -145,7 +145,22 @@ public:
     // Output: none
     // Purpose: Add a word to the Trie by creating nodes for each character
     void insert(string word) {
+        
         // TODO: Implement this function
+        TrieNode* curr = root;
+        for (char ch : word) {
+            int ind = ch - 'a';
+            if (curr->children[ind] == nullptr) {
+                curr->children[ind] = new TrieNode();
+
+            }
+            curr = curr->children[ind];
+        }
+        if (curr->isEndOfWord == false)
+        {
+            wordCount++;
+        }
+        curr->isEndOfWord = true;
     }
 
     // Search for a word in the Trie
@@ -154,6 +169,17 @@ public:
     // Purpose: Check if the complete word exists in the Trie
     bool search(string word) {
         // TODO: Implement this function
+        Trie* curr = root;
+        for (char ch : word) {
+            int ind = ch - 'a';
+
+            if (curr->children[ind] == nullptr) {
+                return false;
+            }
+            curr = curr->children[ind];
+        }
+        return curr->isEndOfWord;
+
         return false; // placeholder
     }
 
